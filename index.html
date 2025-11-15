@@ -1,255 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday My Wife</title>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@700&family=Pacifico&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: "Montserrat", sans-serif;
-    overflow-x: hidden;
-    position: relative;
-    color: #fff;
+  body { font-family: "Montserrat", sans-serif; overflow-x: hidden; position: relative; color: #fff; }
+
+  /* Overlay Countdown */
+  #overlay {
+    position: fixed; top:0; left:0; width:100%; height:100%; z-index:9999;
+    background: linear-gradient(-45deg, #0a0a0a, #1a0033, #330022, #000011);
+    background-size: 400% 400%;
+    animation: overlayGradient 20s ease infinite;
+    display:flex; justify-content:center; align-items:center; flex-direction:column;
+    overflow:hidden;
   }
 
-  /* ⭐ Premium animated gradient background + realistic stars + moon */
+  #overlay h1 {
+    font-family: 'Pacifico', cursive;
+    font-size:3rem;
+    color:#ff6ec7;
+    text-shadow:0 0 20px #ff6ec7,0 0 35px #ff69b4;
+    margin-bottom:20px;
+    text-align:center;
+  }
+
+  #timer {
+    font-size:2.5rem;
+    font-weight:bold;
+    color:#ff6ec7;
+    text-shadow:0 0 10px #fff,0 0 20px #ff69b4;
+  }
+
+  @keyframes overlayGradient {
+    0% { background-position:0% 50%; }
+    50% { background-position:100% 50%; }
+    100% { background-position:0% 50%; }
+  }
+
+  canvas#overlayStars { position:absolute; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none; }
+
+  /* Main page background */
   body::before {
-    content: '';
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: -3;
+    content:''; position:fixed; top:0; left:0; width:100%; height:100%; z-index:-3;
     background: linear-gradient(-45deg, #0a0a0a, #1a0033, #330022, #000011);
     background-size: 400% 400%;
     animation: gradientMove 20s ease infinite;
   }
-  @keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
+  @keyframes gradientMove { 0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
 
-  canvas#stars {
-    position: fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    z-index:-2;
-    pointer-events:none;
-  }
+  canvas#stars, canvas#fireworks { position: fixed; top:0; left:0; width:100%; height:100%; z-index:-2; pointer-events:none; }
+  .moon { position: fixed; top:80px; right:80px; width:120px; height:120px; background: radial-gradient(circle at 30% 30%, #fefcd7, #e0d8a7); border-radius:50%; box-shadow:0 0 50px rgba(255,255,210,0.6); z-index:-1; }
 
-  .moon {
-    position: fixed;
-    top: 80px;
-    right: 80px;
-    width: 120px;
-    height: 120px;
-    background: radial-gradient(circle at 30% 30%, #fefcd7, #e0d8a7);
-    border-radius: 50%;
-    box-shadow: 0 0 50px rgba(255, 255, 210, 0.6);
-    z-index: -1;
-  }
+  .hero { width:100%; height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:20px; position:relative; z-index:2; }
+  .hero img { width:88%; max-width:420px; border-radius:18px; box-shadow:0 0 30px rgba(255,255,255,0.5); opacity:0; transform: scale(1.1); transition:1s ease; }
+  .hero img.show { opacity:1; transform: scale(1); }
 
-  .hero {
-    width:100%; height:100vh;
-    display:flex; flex-direction:column;
-    justify-content:center; align-items:center;
-    text-align:center;
-    padding:20px;
-    position: relative;
-    z-index: 2;
-  }
+  .main-name { font-family: 'Montserrat', sans-serif; font-size:3rem; color:#ff6ec7; text-shadow:0 0 10px #ff6ec7,0 0 20px #ff69b4; margin-bottom:15px; opacity:0; animation: namePop 2s ease forwards; font-weight:700; }
+  @keyframes namePop { 0%{opacity:0;transform:scale(0.6) rotate(-5deg);}50%{opacity:1;transform:scale(1.2) rotate(5deg);}100%{opacity:1;transform:scale(1) rotate(0deg);} }
 
-  .hero img {
-    width:88%; max-width:420px;
-    border-radius:18px;
-    box-shadow:0 0 30px rgba(255,255,255,0.5);
-    opacity:0;
-    animation: fadeIn 2.2s forwards;
-  }
-  @keyframes fadeIn {
-    0% { opacity: 0; transform: scale(1.1); }
-    100% { opacity: 1; transform: scale(1); }
-  }
+  .title { font-family:'Great Vibes', cursive; font-size:3rem; color:#ff6ec7; margin-top:10px; font-weight:700; text-shadow:0 0 5px #ff6ec7,0 0 15px #ff69b4; opacity:0; animation:titlePop 2s ease forwards; }
+  @keyframes titlePop { 0%{opacity:0;transform:scale(0.6) rotate(-5deg);}50%{opacity:1;transform:scale(1.2) rotate(5deg);}100%{opacity:1;transform:scale(1) rotate(0deg);} }
 
-  .main-name {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 3rem;
-    color: #ff6ec7;
-    text-shadow: 0 0 10px #ff6ec7, 0 0 20px #ff69b4;
-    margin-bottom: 15px;
-    opacity:0;
-    animation: namePop 2s ease forwards;
-    font-weight:700;
-  }
-  @keyframes namePop {
-    0% { opacity:0; transform: scale(0.6) rotate(-5deg); }
-    50% { opacity:1; transform: scale(1.2) rotate(5deg); }
-    100% { opacity:1; transform: scale(1) rotate(0deg); }
-  }
+  .shayr { font-family:'Georgia', serif; font-size:1.5rem; color:#ffd700; margin-top:15px; opacity:0; animation: shayrFade 2.5s ease forwards 2.2s; }
+  @keyframes shayrFade { 0%{opacity:0;transform:translateY(20px);}100%{opacity:1;transform:translateY(0);} }
 
-  .title {
-    font-family: 'Great Vibes', cursive;
-    font-size: 3rem;
-    color: #ff6ec7;
-    margin-top:10px;
-    font-weight:700;
-    text-shadow: 0 0 5px #ff6ec7, 0 0 15px #ff69b4;
-    opacity:0;
-    animation: titlePop 2s ease forwards;
-  }
-  @keyframes titlePop {
-    0% { opacity:0; transform: scale(0.6) rotate(-5deg); }
-    50% { opacity:1; transform: scale(1.2) rotate(5deg); }
-    100% { opacity:1; transform: scale(1) rotate(0deg); }
-  }
+  .para-section { padding:15px 20px; text-align:center; font-size:1.2rem; line-height:1.6rem; color:#f8f8f8; max-width:600px; margin:10px auto 40px auto; opacity:0; transform: translateY(30px); transition:1s ease; }
+  .para-section.show { opacity:1; transform: translateY(0); }
 
-  .shayr {
-    font-family: 'Georgia', serif;
-    font-size: 1.5rem;
-    color: #ffd700;
-    margin-top:15px;
-    opacity:0;
-    animation: shayrFade 2.5s ease forwards 2.2s;
-  }
-  @keyframes shayrFade {
-    0% { opacity:0; transform: translateY(20px); }
-    100% { opacity:1; transform: translateY(0); }
-  }
-
-  .section {
-    padding:60px 20px;
-    display:flex;
-    justify-content:center;
-  }
-  .scroll-img {
-    width:90%; max-width:420px;
-    border-radius:18px;
-    box-shadow:0 0 25px rgba(255,255,255,0.3);
-    opacity:0;
-    transform: translateX(70px);
-    transition:0.9s ease-out;
-  }
+  .section { padding:60px 20px; display:flex; flex-direction: column; align-items:center; }
+  .scroll-img { width:90%; max-width:420px; border-radius:18px; box-shadow:0 0 25px rgba(255,255,255,0.3); opacity:0; transform: translateX(70px); transition:1s ease-out; }
   .scroll-img.left { transform: translateX(-70px); }
   .scroll-img.show { opacity:1; transform: translateX(0); }
 
-  .msg {
-    padding:40px 20px;
-    text-align:center;
-    font-size:1.2rem;
-    line-height:1.7rem;
-    color:#f8f8f8;
-  }
-
-  @media (max-width: 768px) {
-    .hero img { width: 90%; max-width: 300px; }
-    .main-name { font-size: 2.2rem; }
-    .title { font-size: 2.2rem; }
-    .shayr { font-size: 1.2rem; }
-  }
-  @media (min-width: 769px) {
-    .hero img { width: 88%; max-width: 500px; }
-    .main-name { font-size: 3.5rem; }
-    .title { font-size: 3.5rem; }
-    .shayr { font-size: 1.7rem; }
-  }
-
-  .trail {
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    background: radial-gradient(circle, #ff69b4, #ffdf00);
-    pointer-events: none;
-    transform: translate(-50%, -50%) rotate(45deg);
-    clip-path: polygon(50% 0%, 100% 37%, 81% 100%, 50% 75%, 19% 100%, 0% 37%);
-    opacity:0.9;
-    animation: trailFade 1.2s forwards;
-    z-index: 3;
-  }
-  @keyframes trailFade {
-    0% { opacity: 0.9; transform: translate(-50%, -50%) scale(1) rotate(45deg); }
-    100% { opacity: 0; transform: translate(-50%, -50%) scale(0.5) rotate(45deg); }
-  }
+  @media (max-width:768px){ .hero img{width:90%; max-width:300px;} .main-name{font-size:2.2rem;} .title{font-size:2.2rem;} .shayr{font-size:1.2rem;} }
+  @media (min-width:769px){ .hero img{width:88%; max-width:500px;} .main-name{font-size:3.5rem;} .title{font-size:3.5rem;} .shayr{font-size:1.7rem;} }
 </style>
 </head>
 <body>
+
+<!-- Overlay Countdown -->
+<div id="overlay">
+  <canvas id="overlayStars"></canvas>
+  <h1>My Wife, Wait is Over! 💖</h1>
+  <div id="timer">5</div>
+</div>
+
 <div class="moon"></div>
 <canvas id="stars"></canvas>
+<canvas id="fireworks"></canvas>
 
 <section class="hero">
   <div class="main-name">TALAL KI TEHREEM</div>
-  <img src="images1.jpg" alt="pic1">
+  <img src="images1.jpg" alt="pic1" class="scroll-img left">
   <h1 class="title">Happy Birthday My Wife ❤️</h1>
   <div class="shayr">تم میری زندگی کی سب سے حسین حقیقت ہو۔</div>
 </section>
 
-<section class="section"><img src="images2.jpg" class="scroll-img left"></section>
-<section class="section"><img src="images3.jpg" class="scroll-img right"></section>
-<section class="section"><img src="images4.jpg" class="scroll-img left"></section>
-<section class="section"><img src="images5.jpg" class="scroll-img right"></section>
-
-<div class="msg">
-  Today I celebrate the most beautiful blessing in my life — YOU. <br><br>
-  May your life always be filled with happiness, peace, and endless love. <br>
-  I pray that Allah grants you success, health, and every dream you hold in your heart. <br><br>
-  Thank you for being my strength, my happiness, and my forever. <br>
-  I love you more than words can ever explain. ❤️
-</div>
+<section class="section">
+  <img src="images2.jpg" class="scroll-img left">
+  <div class="para-section">Today I celebrate the most beautiful blessing in my life — YOU.</div>
+</section>
+<section class="section">
+  <img src="images3.jpg" class="scroll-img right">
+  <div class="para-section">May your life always be filled with happiness, peace, and endless love.</div>
+</section>
+<section class="section">
+  <img src="images4.jpg" class="scroll-img left">
+  <div class="para-section">I pray that Allah grants you success, health, and every dream you hold in your heart.</div>
+</section>
+<section class="section">
+  <img src="images5.jpg" class="scroll-img right">
+  <div class="para-section">Thank you for being my strength, my happiness, and my forever. I love you more than words can ever explain. ❤️</div>
+</section>
 
 <script>
-  const scrollImages = document.querySelectorAll('.scroll-img');
-  function revealOnScroll() {
-    scrollImages.forEach(img => {
-      const rect = img.getBoundingClientRect();
-      if(rect.top < window.innerHeight - 100) img.classList.add('show');
-    });
-  }
-  window.addEventListener('scroll', revealOnScroll);
-  revealOnScroll();
+// Overlay countdown and stars
+let count=5;
+const timerEl=document.getElementById('timer');
+const overlay=document.getElementById('overlay');
+const overlayStarsCanvas=document.getElementById('overlayStars');
+const octx=overlayStarsCanvas.getContext('2d');
+function resizeOverlayStars(){ overlayStarsCanvas.width=window.innerWidth; overlayStarsCanvas.height=window.innerHeight; }
+window.addEventListener('resize',resizeOverlayStars); resizeOverlayStars();
+const overlayStars=Array.from({length:200},()=>({ x:Math.random()*overlayStarsCanvas.width, y:Math.random()*overlayStarsCanvas.height, r:Math.random()*1.5+0.5, opacity:Math.random(), dOpacity:(Math.random()*0.02)+0.005 }));
+function drawOverlayStars(){ octx.clearRect(0,0,overlayStarsCanvas.width,overlayStarsCanvas.height); overlayStars.forEach(s=>{ s.opacity+=s.dOpacity; if(s.opacity>1||s.opacity<0) s.dOpacity*=-1; octx.beginPath(); octx.arc(s.x,s.y,s.r,0,Math.PI*2); octx.fillStyle=`rgba(255,255,255,${s.opacity})`; octx.shadowBlur=3; octx.shadowColor='white'; octx.fill(); }); }
+setInterval(drawOverlayStars,80);
 
-  const canvas = document.getElementById('stars');
-  const ctx = canvas.getContext('2d');
-  let w, h;
-  function resize(){ w=canvas.width=window.innerWidth; h=canvas.height=window.innerHeight; }
-  window.addEventListener('resize', resize); resize();
+const overlayInterval=setInterval(()=>{ count--; timerEl.textContent=count; if(count<=0){ clearInterval(overlayInterval); overlay.style.transition='opacity 1s'; overlay.style.opacity='0'; setTimeout(()=>overlay.style.display='none',1000); launchStageFireworks(); } },1000);
 
-  const stars = Array.from({length:600},()=>({
-    x:Math.random()*w,
-    y:Math.random()*h,
-    r:Math.random()*2+0.5,
-    opacity: Math.random(),
-    dOpacity: (Math.random()*0.02)+0.005
-  }));
+// Scroll reveal
+const scrollImages=document.querySelectorAll('.scroll-img');
+const paraSections=document.querySelectorAll('.para-section');
+function revealOnScroll(){
+  scrollImages.forEach(img=>{ if(img.getBoundingClientRect().top<window.innerHeight-100) img.classList.add('show'); });
+  paraSections.forEach(para=>{ if(para.getBoundingClientRect().top<window.innerHeight-50) para.classList.add('show'); });
+}
+window.addEventListener('scroll',revealOnScroll); revealOnScroll();
 
-  function drawStars(){
-    ctx.clearRect(0,0,w,h);
-    stars.forEach(s=>{
-      s.opacity += s.dOpacity;
-      if(s.opacity > 1 || s.opacity < 0) s.dOpacity *= -1;
-      ctx.beginPath();
-      ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-      ctx.fillStyle=`rgba(255,255,255,${s.opacity})`;
-      ctx.shadowBlur=5;
-      ctx.shadowColor="white";
-      ctx.fill();
-    });
-  }
-  setInterval(drawStars,100);
+// Stars background
+const canvas=document.getElementById('stars'); const ctx=canvas.getContext('2d'); let w,h;
+function resize(){ w=canvas.width=window.innerWidth; h=canvas.height=window.innerHeight; }
+window.addEventListener('resize',resize); resize();
+const stars=Array.from({length:600},()=>({ x:Math.random()*w, y:Math.random()*h, r:Math.random()*2+0.5, opacity:Math.random(), dOpacity:(Math.random()*0.02)+0.005 }));
+function drawStars(){ ctx.clearRect(0,0,w,h); stars.forEach(s=>{ s.opacity+=s.dOpacity; if(s.opacity>1||s.opacity<0) s.dOpacity*=-1; ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fillStyle=`rgba(255,255,255,${s.opacity})`; ctx.shadowBlur=5; ctx.shadowColor='white'; ctx.fill(); }); }
+setInterval(drawStars,100);
 
-  function createTrail(x,y){
-    const trail = document.createElement('div');
-    trail.classList.add('trail');
-    trail.style.left = x+'px';
-    trail.style.top = y+'px';
-    document.body.appendChild(trail);
-    setTimeout(()=>trail.remove(),1200);
-  }
-  document.addEventListener('mousemove', e=>createTrail(e.clientX,e.clientY));
-  document.addEventListener('touchmove', e=>{
-    for(let t of e.touches){ createTrail(t.clientX,t.clientY); }
-  }, {passive:true});
+// Fireworks
+function launchStageFireworks(){ const fwCanvas=document.getElementById('fireworks'); const fwCtx=fwCanvas.getContext('2d'); fwCanvas.width=window.innerWidth; fwCanvas.height=window.innerHeight; const particles=[];
+class Particle{ constructor(x,y,color,vy){ this.x=x; this.y=y; this.vx=(Math.random()-0.5)*2; this.vy=vy; this.alpha=1; this.color=color; } update(){ this.x+=this.vx; this.y+=this.vy; this.vy+=0.05; this.alpha-=0.015; } draw(){ fwCtx.globalAlpha=this.alpha; fwCtx.beginPath(); fwCtx.arc(this.x,this.y,3,0,Math.PI*2); fwCtx.fillStyle=this.color; fwCtx.fill(); fwCtx.globalAlpha=1; } }
+function createFirework(x){ const colors=["#ff4d4d","#ffb84d","#4dff4d","#4d4dff","#ff4dff"]; const color=colors[Math.floor(Math.random()*colors.length)]; for(let i=0;i<40;i++){ particles.push(new Particle(x,h-10,color,-(Math.random()*6+8))); } }
+let fwTime=0; function animateFW(){ fwCtx.clearRect(0,0,w,h); particles.forEach(p=>{ p.update(); p.draw(); }); for(let i=particles.length-1;i>=0;i--){ if(particles[i].alpha<=0) particles.splice(i,1); }
+fwTime+=0.016; if(fwTime<10){ if(Math.random()<0.08){ createFirework(Math.random()<0.5?50:w-50); } requestAnimationFrame(animateFW); } }
+animateFW();
+}
 </script>
 </body>
 </html>
-
