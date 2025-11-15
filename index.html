@@ -4,41 +4,51 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Happy Birthday My Wife</title>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@700&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
-    font-family: "Poppins", sans-serif;
-    background: #000;
-    color: #fff;
+    font-family: "Montserrat", sans-serif;
     overflow-x: hidden;
     position: relative;
+    color: #fff;
+  }
+
+  /* ⭐ Premium animated gradient background + realistic stars + moon */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -3;
+    background: linear-gradient(-45deg, #0a0a0a, #1a0033, #330022, #000011);
+    background-size: 400% 400%;
+    animation: gradientMove 20s ease infinite;
+  }
+  @keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
   }
 
   canvas#stars {
     position: fixed;
     top:0; left:0;
     width:100%; height:100%;
-    z-index:0;
+    z-index:-2;
     pointer-events:none;
   }
 
-  .popper {
+  .moon {
     position: fixed;
-    width: 4px; height: 4px;
-    background: radial-gradient(circle, #ffdf00, #ff69b4, #00e4ff);
+    top: 80px;
+    right: 80px;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle at 30% 30%, #fefcd7, #e0d8a7);
     border-radius: 50%;
-    top: 50%; left: 50%;
-    opacity: 0;
-    pointer-events: none;
-    animation: popperAnim 5s forwards;
-    box-shadow: 0 0 8px #fff, 0 0 12px #ffdf00, 0 0 15px #ff69b4;
-  }
-
-  @keyframes popperAnim {
-    0% { transform: translate(-50%, -50%) scale(0); opacity:1; }
-    50% { transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1.2); opacity:1; }
-    100% { transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(0.5); opacity:0; }
+    box-shadow: 0 0 50px rgba(255, 255, 210, 0.6);
+    z-index: -1;
   }
 
   .hero {
@@ -50,10 +60,11 @@
     position: relative;
     z-index: 2;
   }
+
   .hero img {
     width:88%; max-width:420px;
     border-radius:18px;
-    box-shadow:0 0 25px rgba(255,255,255,0.4);
+    box-shadow:0 0 30px rgba(255,255,255,0.5);
     opacity:0;
     animation: fadeIn 2.2s forwards;
   }
@@ -63,13 +74,14 @@
   }
 
   .main-name {
-    font-family: 'Great Vibes', cursive;
+    font-family: 'Montserrat', sans-serif;
     font-size: 3rem;
-    color: #ff6ec7; /* neon pink */
-    text-shadow: 0 0 5px #ff6ec7, 0 0 10px #ff6ec7;
-    margin-bottom: 10px;
+    color: #ff6ec7;
+    text-shadow: 0 0 10px #ff6ec7, 0 0 20px #ff69b4;
+    margin-bottom: 15px;
     opacity:0;
     animation: namePop 2s ease forwards;
+    font-weight:700;
   }
   @keyframes namePop {
     0% { opacity:0; transform: scale(0.6) rotate(-5deg); }
@@ -83,7 +95,7 @@
     color: #ff6ec7;
     margin-top:10px;
     font-weight:700;
-    text-shadow: 0 0 5px #ff6ec7, 0 0 10px #ff6ec7;
+    text-shadow: 0 0 5px #ff6ec7, 0 0 15px #ff69b4;
     opacity:0;
     animation: titlePop 2s ease forwards;
   }
@@ -162,10 +174,11 @@
 </style>
 </head>
 <body>
+<div class="moon"></div>
 <canvas id="stars"></canvas>
 
 <section class="hero">
-  <div class="main-name">TEHHREM KI TALAL</div>
+  <div class="main-name">TALAL KI TEHREEM</div>
   <img src="images1.jpg" alt="pic1">
   <h1 class="title">Happy Birthday My Wife ❤️</h1>
   <div class="shayr">تم میری زندگی کی سب سے حسین حقیقت ہو۔</div>
@@ -200,37 +213,29 @@
   let w, h;
   function resize(){ w=canvas.width=window.innerWidth; h=canvas.height=window.innerHeight; }
   window.addEventListener('resize', resize); resize();
-  const stars = Array.from({length:500},()=>({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.2+0.8,d:Math.random()*0.8+0.2, dx: (Math.random()-0.5)*0.3, dy: (Math.random()-0.5)*0.3}));
+
+  const stars = Array.from({length:600},()=>({
+    x:Math.random()*w,
+    y:Math.random()*h,
+    r:Math.random()*2+0.5,
+    opacity: Math.random(),
+    dOpacity: (Math.random()*0.02)+0.005
+  }));
+
   function drawStars(){
     ctx.clearRect(0,0,w,h);
     stars.forEach(s=>{
-      s.x += s.dx; s.y += s.dy;
-      if(s.x<0)s.x=w;if(s.x>w)s.x=0;
-      if(s.y<0)s.y=h;if(s.y>h)s.y=0;
+      s.opacity += s.dOpacity;
+      if(s.opacity > 1 || s.opacity < 0) s.dOpacity *= -1;
       ctx.beginPath();
       ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-      ctx.fillStyle=`rgba(255,255,255,${0.5+Math.random()*0.5})`;
-      ctx.shadowBlur=8;
+      ctx.fillStyle=`rgba(255,255,255,${s.opacity})`;
+      ctx.shadowBlur=5;
       ctx.shadowColor="white";
       ctx.fill();
     });
   }
-  setInterval(drawStars,120);
-
-  function createPoppers(count=100){
-    for(let i=0;i<count;i++){
-      const popper = document.createElement('div');
-      popper.classList.add('popper');
-      const angle = Math.random() * Math.PI - Math.PI/2;
-      const radius = Math.random() * 200 + 50;
-      popper.style.setProperty('--x', `${Math.cos(angle)*radius}px`);
-      popper.style.setProperty('--y', `${Math.sin(angle)*radius}px`);
-      popper.style.animationDuration = `${4 + Math.random()}s`;
-      document.body.appendChild(popper);
-      setTimeout(()=>{ popper.remove(); }, 5000);
-    }
-  }
-  window.addEventListener('load', ()=>{ createPoppers(100); });
+  setInterval(drawStars,100);
 
   function createTrail(x,y){
     const trail = document.createElement('div');
@@ -247,3 +252,4 @@
 </script>
 </body>
 </html>
+
