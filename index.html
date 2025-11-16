@@ -1,247 +1,911 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday My Wife</title>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@700&family=Pacifico&display=swap" rel="stylesheet">
-<style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:"Montserrat", sans-serif; overflow-x:hidden; position:relative; color:#fff; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday My Love!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-/* Overlay Countdown */
-#overlay {
-  position: fixed; top:0; left:0; width:100%; height:100%; z-index:9999;
-  background: linear-gradient(-45deg, #0a0a0a, #1a0033, #330022, #000011);
-  background-size:400% 400%;
-  animation: overlayGradient 20s ease infinite;
-  display:flex; justify-content:center; align-items:center; flex-direction:column;
-  overflow:hidden;
-}
-#overlay h1 {
-  font-family: 'Pacifico', cursive;
-  font-size:3rem;
-  color:#ff6ec7;
-  text-shadow:0 0 20px #ff6ec7,0 0 35px #ff69b4;
-  margin-bottom:20px;
-  text-align:center;
-}
-#timer {
-  font-size:2.5rem;
-  font-weight:bold;
-  color:#ff6ec7;
-  text-shadow:0 0 10px #fff,0 0 20px #ff69b4;
-}
-@keyframes overlayGradient {
-  0% { background-position:0% 50%; }
-  50% { background-position:100% 50%; }
-  100% { background-position:0% 50%; }
-}
-canvas#overlayStars { position:absolute; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background: #000;
+        }
 
-/* Main page background */
-body::before {
-  content:''; position:fixed; top:0; left:0; width:100%; height:100%; z-index:-3;
-  background: linear-gradient(-45deg, #0a0a0a, #1a0033, #330022, #000011);
-  background-size: 400% 400%;
-  animation: gradientMove 20s ease infinite;
-}
-@keyframes gradientMove { 0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
-canvas#stars, canvas#fireworks { position: fixed; top:0; left:0; width:100%; height:100%; z-index:-2; pointer-events:none; }
-.moon { position: fixed; top:80px; right:80px; width:120px; height:120px; background: radial-gradient(circle at 30% 30%, #fefcd7, #e0d8a7); border-radius:50%; box-shadow:0 0 50px rgba(255,255,210,0.6); z-index:-1; }
+        /* === COUNTDOWN TIMER === */
+        #countdown {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #2c003e 0%, #6a0dad 50%, #8b0000 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
 
-.hero { width:100%; height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:20px; position:relative; z-index:2; }
-.hero img { width:88%; max-width:420px; border-radius:18px; box-shadow:0 0 30px rgba(255,255,255,0.5); opacity:0; transform: scale(1.1); transition:1s ease; }
-.hero img.show { opacity:1; transform: scale(1); }
-.main-name { font-family: 'Montserrat', sans-serif; font-size:3rem; color:#ff6ec7; text-shadow:0 0 10px #ff6ec7,0 0 20px #ff69b4; margin-bottom:15px; opacity:0; animation: namePop 2s ease forwards; font-weight:700; }
-@keyframes namePop { 0%{opacity:0;transform:scale(0.6) rotate(-5deg);}50%{opacity:1;transform:scale(1.2) rotate(5deg);}100%{opacity:1;transform:scale(1) rotate(0deg);} }
-.title { font-family:'Great Vibes', cursive; font-size:3rem; color:#ff6ec7; margin-top:10px; font-weight:700; text-shadow:0 0 5px #ff6ec7,0 0 15px #ff69b4; opacity:0; animation:titlePop 2s ease forwards; }
-@keyframes titlePop { 0%{opacity:0;transform:scale(0.6) rotate(-5deg);}50%{opacity:1;transform:scale(1.2) rotate(5deg);}100%{opacity:1;transform:scale(1) rotate(0deg);} }
-.shayr { font-family:'Georgia', serif; font-size:1.5rem; color:#ffd700; margin-top:15px; opacity:0; animation: shayrFade 2.5s ease forwards 2.2s; }
-@keyframes shayrFade { 0%{opacity:0;transform:translateY(20px);}100%{opacity:1;transform:translateY(0);} }
+        .countdown-text {
+            font-size: 5vw;
+            color: #ff1493;
+            text-shadow: 0 0 20px #ff1493, 0 0 30px #ff1493;
+            margin-bottom: 4vw;
+            animation: gentlePulse 2s ease-in-out infinite alternate;
+            text-align: center;
+            padding: 0 5vw;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
 
-.para-section { padding:15px 20px; text-align:center; font-size:1.2rem; line-height:1.6rem; color:#f8f8f8; max-width:600px; margin:10px auto 40px auto; opacity:0; transform: translateY(30px); transition:1s ease; }
-.para-section.show { opacity:1; transform: translateY(0); }
+        .countdown-number {
+            font-size: 15vw;
+            color: #ff1493;
+            text-shadow: 0 0 20px #ff1493, 0 0 30px #ff1493;
+            animation: gentlePulse 1.5s ease-in-out infinite alternate;
+            font-weight: 700;
+        }
 
-.section { padding:60px 20px; display:flex; flex-direction: column; align-items:center; }
-.scroll-img { width:90%; max-width:420px; border-radius:18px; box-shadow:0 0 25px rgba(255,255,255,0.3); opacity:0; transform: translateX(70px); transition:1s ease-out; }
-.scroll-img.left { transform: translateX(-70px); }
-.scroll-img.show { opacity:1; transform: translateX(0); }
+        @keyframes gentlePulse {
+            from {
+                text-shadow: 0 0 10px #ff1493, 0 0 20px #ff1493;
+            }
+            to {
+                text-shadow: 0 0 15px #ff1493, 0 0 25px #ff1493;
+            }
+        }
 
-/* Button for image 2 */
-.love-btn { margin-top: 20px; padding: 12px 25px; font-size: 1.2rem; font-family: 'Montserrat', sans-serif; font-weight: 700; color: #fff; background: linear-gradient(45deg, #ff6ec7, #ff4dff, #ff69b4); border: none; border-radius: 12px; cursor: pointer; box-shadow: 0 0 15px rgba(255,105,180,0.7); animation: pulse 2s infinite; transition: transform 0.2s, box-shadow 0.2s; }
-.love-btn:hover { transform: scale(1.1); box-shadow: 0 0 25px rgba(255,105,180,0.9); }
-@keyframes pulse { 0% { transform: translateY(0px) scale(1); box-shadow: 0 0 15px rgba(255,105,180,0.7);} 50% { transform: translateY(-5px) scale(1.05); box-shadow: 0 0 25px rgba(255,105,180,0.9);} 100% { transform: translateY(0px) scale(1); box-shadow: 0 0 15px rgba(255,105,180,0.7);} }
+        /* === VERTICAL PARTY POPPER EFFECT === */
+        .party-popper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            display: none;
+        }
 
-@media (max-width:768px){ .hero img{width:90%; max-width:300px;} .main-name{font-size:2.2rem;} .title{font-size:2.2rem;} .shayr{font-size:1.2rem;} }
-@media (min-width:769px){ .hero img{width:88%; max-width:500px;} .main-name{font-size:3.5rem;} .title{font-size:3.5rem;} .shayr{font-size:1.7rem;} }
-</style>
+        .popper {
+            position: absolute;
+            font-size: 2vw;
+            animation: popperFlyVertical 2s ease-out forwards;
+        }
+
+        @keyframes popperFlyVertical {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(50vh) rotate(180deg) scale(1.5);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .vertical-flare {
+            position: absolute;
+            width: 5px;
+            height: 100px;
+            background: linear-gradient(180deg, transparent, gold, gold, transparent);
+            animation: verticalFlareMove 2s ease-out;
+        }
+
+        @keyframes verticalFlareMove {
+            0% {
+                transform: translateY(100vh) scaleY(0);
+                opacity: 0;
+            }
+            30% {
+                transform: translateY(70vh) scaleY(1);
+                opacity: 1;
+            }
+            70% {
+                transform: translateY(30vh) scaleY(0.8);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100px) scaleY(0);
+                opacity: 0;
+            }
+        }
+
+        .vertical-flare-left {
+            left: 20%;
+        }
+
+        .vertical-flare-right {
+            right: 20%;
+        }
+
+        .vertical-flare-center {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* === PREMIUM BACKGROUND === */
+        .premium-bg {
+            background: linear-gradient(135deg, #1a001a 0%, #4b0082 25%, #8b0000 50%, #4b0082 75%, #1a001a 100%);
+            background-size: 400% 400%;
+            animation: premiumShift 8s ease infinite;
+            position: relative;
+        }
+
+        @keyframes premiumShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* === GLOWING STARS === */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkleGlow linear infinite;
+            box-shadow: 0 0 8px #ff69b4;
+        }
+
+        @keyframes twinkleGlow {
+            0%, 100% { 
+                opacity: 0.3; 
+                transform: scale(0.5) translateX(0);
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1.2) translateX(2px);
+            }
+        }
+
+        /* === MAIN PAGE - NO SCROLL ISSUE FIX === */
+        #main-page {
+            display: none;
+            min-height: 100vh;
+            padding: 5vw;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* === VIDEO CAKE === */
+        .video-cake {
+            width: 80vw;
+            max-width: 400px;
+            height: 80vw;
+            max-height: 400px;
+            margin: 5vw auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 
+                0 0 30px rgba(255, 20, 147, 0.5),
+                0 0 50px rgba(255, 20, 147, 0.3);
+            border: 2px solid rgba(255, 20, 147, 0.3);
+            animation: gentleFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% { 
+                transform: translateY(0px); 
+            }
+            50% { 
+                transform: translateY(-10px); 
+            }
+        }
+
+        .video-cake video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        /* === STYLISH TITLE === */
+        .stylish-title {
+            margin-top: 5vw;
+            font-size: 7vw;
+            color: #ff69b4;
+            font-weight: 700;
+            text-shadow: 
+                0 0 10px #ff69b4,
+                0 0 20px #ff69b4;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+            letter-spacing: 2px;
+            font-family: 'Brush Script MT', cursive;
+            background: linear-gradient(45deg, #ff69b4, #ff1493, #ff69b4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        @keyframes titleGlow {
+            from {
+                text-shadow: 
+                    0 0 5px #ff69b4,
+                    0 0 10px #ff69b4;
+            }
+            to {
+                text-shadow: 
+                    0 0 10px #ff69b4,
+                    0 0 20px #ff69b4,
+                    0 0 30px #ff1493;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .stylish-title {
+                font-size: 4vw;
+            }
+        }
+
+        /* === GENTLE MOVING PHOTO === */
+        .gentle-moving-photo {
+            width: 60vw;
+            max-width: 280px;
+            height: 60vw;
+            max-height: 280px;
+            border-radius: 50%;
+            margin: 5vw auto;
+            position: relative;
+            animation: gentleMove 3s ease-in-out infinite;
+            box-shadow: 
+                0 0 25px rgba(255, 105, 180, 0.4),
+                0 0 40px rgba(255, 105, 180, 0.2);
+            border: 3px solid transparent;
+            background: linear-gradient(45deg, #ff69b4, #8b0000, #4b0082);
+            background-clip: padding-box;
+            overflow: hidden;
+        }
+
+        @keyframes gentleMove {
+            0%, 100% { 
+                transform: translateX(0px) translateY(0px) rotate(0deg);
+            }
+            25% { 
+                transform: translateX(-5px) translateY(-3px) rotate(-1deg);
+            }
+            50% { 
+                transform: translateX(5px) translateY(-5px) rotate(1deg);
+            }
+            75% { 
+                transform: translateX(-3px) translateY(3px) rotate(-0.5deg);
+            }
+        }
+
+        .gentle-moving-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            filter: brightness(1.05) saturate(1.1);
+        }
+
+        /* === PREMIUM URDU POETRY === */
+        .premium-urdu {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            padding: 6vw;
+            border-radius: 20px;
+            margin: 5vw auto;
+            max-width: 600px;
+            color: #ff6bcd;
+            font-size: 5vw;
+            line-height: 2;
+            border: 1px solid rgba(255, 105, 180, 0.3);
+            box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.2),
+                inset 0 0 15px rgba(255, 105, 180, 0.1);
+            font-family: 'Jameel Noori Nastaleeq', 'Urdu Typesetting', 'Noto Nastaliq Urdu', serif;
+            text-align: center;
+            direction: rtl;
+            animation: fadeInUp 2s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .premium-urdu {
+                font-size: 2vw;
+                padding: 3vw;
+            }
+        }
+
+        /* === GENTLE BUTTON === */
+        .gentle-btn {
+            background: linear-gradient(135deg, #ff69b4 0%, #8b0000 100%);
+            color: white;
+            border: none;
+            padding: 4vw 8vw;
+            font-size: 5vw;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 5vw 0;
+            box-shadow: 
+                0 4px 15px rgba(255, 105, 180, 0.4);
+            transition: all 0.4s ease;
+            animation: gentlePulseBtn 2s ease-in-out infinite;
+            font-weight: 600;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes gentlePulseBtn {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+            }
+            50% { 
+                transform: scale(1.03);
+                box-shadow: 0 6px 20px rgba(255, 105, 180, 0.6);
+            }
+        }
+
+        .gentle-btn:hover {
+            animation: none;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.7);
+        }
+
+        @media (min-width: 768px) {
+            .gentle-btn {
+                font-size: 2vw;
+                padding: 2vw 4vw;
+            }
+        }
+
+        /* === LOVE LETTER PAGE - SEPARATE PAGE === */
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding: 5vw;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        #love-letter-page {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .premium-letter {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8vw;
+            border-radius: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 
+                0 15px 35px rgba(0,0,0,0.2);
+            border: 2px solid rgba(255, 105, 180, 0.2);
+            position: relative;
+            z-index: 2;
+            animation: letterReveal 2s ease-out;
+        }
+
+        @keyframes letterReveal {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .premium-letter h2 {
+            color: #ff1493;
+            margin-bottom: 5vw;
+            font-size: 6vw;
+            font-family: 'Brush Script MT', cursive;
+            animation: fadeIn 2s ease-in;
+        }
+
+        .premium-letter p {
+            font-size: 4vw;
+            line-height: 1.8;
+            color: #333;
+            text-align: left;
+            animation: textFlow 3s ease-in-out;
+        }
+
+        @keyframes textFlow {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .premium-letter {
+                padding: 4vw;
+            }
+            .premium-letter h2 {
+                font-size: 3vw;
+                margin-bottom: 2vw;
+            }
+            .premium-letter p {
+                font-size: 1.5vw;
+            }
+        }
+
+        /* === GENTLE NAV BUTTONS === */
+        .gentle-nav {
+            margin-top: 8vw;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 3vw;
+            align-items: center;
+            animation: fadeIn 2s ease-in;
+        }
+
+        .nav-main-gentle {
+            background: linear-gradient(135deg, #ff69b4 0%, #8b0000 100%);
+            color: white;
+            border: none;
+            padding: 4vw 10vw;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 5vw;
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+            min-width: 60vw;
+            animation: gentleMoveBtn 3s ease-in-out infinite;
+            font-weight: 600;
+        }
+
+        @keyframes gentleMoveBtn {
+            0%, 100% { 
+                transform: translateX(0px);
+            }
+            25% { 
+                transform: translateX(-3px);
+            }
+            50% { 
+                transform: translateX(3px);
+            }
+            75% { 
+                transform: translateX(-1px);
+            }
+        }
+
+        .nav-back-gentle {
+            background: linear-gradient(135deg, #4b0082 0%, #8b0000 100%);
+            color: white;
+            border: none;
+            padding: 3vw 8vw;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 4vw;
+            box-shadow: 0 4px 12px rgba(75, 0, 130, 0.4);
+            min-width: 40vw;
+            transition: all 0.3s ease;
+        }
+
+        @media (min-width: 768px) {
+            .gentle-nav {
+                margin-top: 4vw;
+                gap: 1.5vw;
+            }
+            .nav-main-gentle {
+                font-size: 2vw;
+                padding: 2vw 5vw;
+                min-width: 30vw;
+            }
+            .nav-back-gentle {
+                font-size: 1.5vw;
+                padding: 1.5vw 4vw;
+                min-width: 20vw;
+            }
+        }
+
+        .nav-main-gentle:hover, .nav-back-gentle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 105, 180, 0.6);
+        }
+
+        /* === PHOTO ALBUM === */
+        .premium-photo-item {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 5vw auto;
+            padding: 5vw;
+            border-radius: 15px;
+            max-width: 90vw;
+            box-shadow: 
+                0 10px 25px rgba(0,0,0,0.15);
+            position: relative;
+            z-index: 2;
+            animation: photoSlide 1s ease-out;
+        }
+
+        @keyframes photoSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .premium-photo-frame {
+            width: 80vw;
+            max-width: 500px;
+            height: 50vw;
+            max-height: 350px;
+            margin: 0 auto 4vw;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 
+                0 8px 20px rgba(0,0,0,0.2);
+            border: 2px solid rgba(255, 105, 180, 0.2);
+        }
+
+        .premium-photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.4s ease;
+        }
+
+        .premium-photo-frame img:hover {
+            transform: scale(1.05);
+        }
+
+        .premium-photo-desc {
+            color: #333;
+            font-size: 4vw;
+            line-height: 1.6;
+            animation: fadeIn 2s ease-in;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        @media (min-width: 768px) {
+            .premium-photo-item {
+                margin: 2vw auto;
+                padding: 2vw;
+                max-width: 600px;
+            }
+            .premium-photo-desc {
+                font-size: 1.5vw;
+            }
+        }
+    </style>
+    
+    <!-- Urdu Font Support -->
+    <link href="https://fonts.alkalami.net/font.css" rel="stylesheet">
 </head>
 <body>
+    <!-- COUNTDOWN TIMER -->
+    <div id="countdown" class="premium-bg">
+        <div class="stars" id="countdown-stars"></div>
+        <div class="countdown-text">Wait Is Over My Wife</div>
+        <div class="countdown-number">5</div>
+    </div>
 
-<!-- Overlay Countdown -->
-<div id="overlay">
-  <canvas id="overlayStars"></canvas>
-  <h1>My Wife, Wait is Over! 💖</h1>
-  <div id="timer">5</div>
-</div>
+    <!-- VERTICAL PARTY POPPER EFFECT -->
+    <div class="party-popper" id="partyPopper"></div>
 
-<div class="moon"></div>
-<canvas id="stars"></canvas>
-<canvas id="fireworks"></canvas>
+    <!-- MAIN PAGE - ONLY MAIN CONTENT -->
+    <div id="main-page" class="page premium-bg">
+        <div class="stars" id="main-stars"></div>
+        
+        <!-- VIDEO CAKE -->
+        <div class="video-cake">
+            <video autoplay muted loop>
+                <source src="vid1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        
+        <!-- STYLISH TITLE -->
+        <div class="stylish-title">Happy Birthday My Love! 💖</div>
+        
+        <!-- GENTLE MOVING PHOTO -->
+        <div class="gentle-moving-photo">
+            <img src="pic1.jpg" alt="Our Beautiful Photo">
+        </div>
+        
+        <!-- PREMIUM URDU POETRY -->
+        <div class="premium-urdu">
+            محبت ہے اسی کو جسے عالم میں پایا نہیں<br>
+            وہی ایک ہستی ہے جو ہر جان میں سمائی نہیں<br><br>
+            
+            گلون میں رنگ بھرے بادِ نو بہار چلے<br>
+            چلے بھی آؤ کہ گلشن کا کاروبار چلے
+        </div>
+        
+        <!-- GENTLE BUTTON - THIS GOES TO LOVE LETTER PAGE -->
+        <button class="gentle-btn" onclick="showPage('love-letter-page')">
+            💌 Open My Love Letter
+        </button>
+    </div>
 
-<section class="hero">
-  <div class="main-name">TALAL KI TEHREEM</div>
-  <img src="images1.jpg" alt="pic1" class="scroll-img left">
-  <h1 class="title">Happy Birthday My Wife ❤️</h1>
-  <div class="shayr">تم میری زندگی کی سب سے حسین حقیقت ہو۔</div>
-</section>
+    <!-- LOVE LETTER PAGE - SEPARATE PAGE -->
+    <div id="love-letter-page" class="page premium-bg">
+        <div class="stars" id="letter-stars"></div>
+        <div class="premium-letter">
+            <h2>My Dearest Love 💖</h2>
+            <p>
+                My Beautiful Wife,<br><br>
+                
+                On your special day, I want to remind you how much you mean to me. 
+                You are the sunshine that brightens my darkest days, the laughter 
+                that fills our home with joy, and the love that completes my soul.<br><br>
+                
+                Watching you grow and achieve your dreams has been my greatest privilege. 
+                Your strength inspires me, your kindness humbles me, and your love 
+                transforms me into a better person every single day.<br><br>
+                
+                Today, I celebrate not just your birthday, but the incredible woman you are. 
+                May this year bring you all the happiness, success, and love you truly deserve.<br><br>
+                
+                Forever and always,<br>
+                Your Loving Husband
+            </p>
+        </div>
+        
+        <!-- GENTLE NAV BUTTONS -->
+        <div class="gentle-nav">
+            <button class="nav-main-gentle" onclick="showPage('photo-album-page')">
+                میری بیگم نیکسٹ کریں 👉
+            </button>
+            <button class="nav-back-gentle" onclick="showPage('main-page')">
+                🔙 بیک
+            </button>
+        </div>
+    </div>
 
-<section class="section">
-  <img src="images2.jpg" class="scroll-img left">
-  <div class="para-section">Today I celebrate the most beautiful blessing in my life — YOU.</div>
-  <button class="love-btn">Meri Begum Yaha Click Kare ❤️</button>
-</section>
+    <!-- PHOTO ALBUM PAGE - SEPARATE PAGE -->
+    <div id="photo-album-page" class="page premium-bg">
+        <div class="stars" id="album-stars"></div>
+        <h2 style="color: #ff69b4; margin-bottom: 5vw; position: relative; z-index: 2; font-size: 6vw; animation: fadeIn 1s ease-in; text-align: center; font-family: 'Brush Script MT', cursive;">
+            Our Beautiful Memories 📸
+        </h2>
+        
+        <div class="premium-photo-item">
+            <div class="premium-photo-frame">
+                <img src="pic2.jpg" alt="Our First Meeting">
+            </div>
+            <div class="premium-photo-desc">The day my life changed forever - when I first saw your beautiful smile!</div>
+        </div>
+        
+        <div class="premium-photo-item">
+            <div class="premium-photo-frame">
+                <img src="pic3.jpg" alt="Our Wedding Day">
+            </div>
+            <div class="premium-photo-desc">The happiest day of my life - when I got to call you my wife!</div>
+        </div>
+        
+        <div class="premium-photo-item">
+            <div class="premium-photo-frame">
+                <img src="pic4.jpg" alt="Vacation Memories">
+            </div>
+            <div class="premium-photo-desc">Exploring the world together and creating unforgettable memories!</div>
+        </div>
+        
+        <div class="premium-photo-item">
+            <div class="premium-photo-frame">
+                <img src="pic5.jpg" alt="Everyday Happiness">
+            </div>
+            <div class="premium-photo-desc">Those simple moments at home that mean everything to me!</div>
+        </div>
+        
+        <div class="gentle-nav">
+            <button class="nav-main-gentle" onclick="showPage('main-page')">
+                🏠 ہوم پیج
+            </button>
+            <button class="nav-back-gentle" onclick="showPage('love-letter-page')">
+                🔙 بیک
+            </button>
+        </div>
+    </div>
 
-<section class="section">
-  <img src="images3.jpg" class="scroll-img right">
-  <div class="para-section">May your life always be filled with happiness, peace, and endless love.</div>
-</section>
-<section class="section">
-  <img src="images4.jpg" class="scroll-img left">
-  <div class="para-section">I pray that Allah grants you success, health, and every dream you hold in your heart.</div>
-</section>
-<section class="section">
-  <img src="images5.jpg" class="scroll-img right">
-  <div class="para-section">Thank you for being my strength, my happiness, and my forever. I love you more than words can ever explain. ❤️</div>
-</section>
+    <script>
+        // Create stars function
+        function createStars(containerId, count = 50) {
+            const container = document.getElementById(containerId);
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDuration = Math.random() * 5 + 3 + 's';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(star);
+            }
+        }
 
-<script>
-// Overlay countdown
-let count=5;
-const timerEl=document.getElementById('timer');
-const overlay=document.getElementById('overlay');
-const overlayStarsCanvas=document.getElementById('overlayStars');
-const octx=overlayStarsCanvas.getContext('2d');
-function resizeOverlayStars(){ overlayStarsCanvas.width=window.innerWidth; overlayStarsCanvas.height=window.innerHeight; }
-window.addEventListener('resize',resizeOverlayStars); resizeOverlayStars();
-const overlayStars=Array.from({length:150},()=>({ x:Math.random()*overlayStarsCanvas.width, y:Math.random()*overlayStarsCanvas.height, r:Math.random()*1.5+0.5, opacity:Math.random(), dOpacity:(Math.random()*0.02)+0.003 }));
-function drawOverlayStars(){ 
-  octx.clearRect(0,0,overlayStarsCanvas.width,overlayStarsCanvas.height); 
-  overlayStars.forEach(s=>{
-    s.opacity+=s.dOpacity; if(s.opacity>1||s.opacity<0) s.dOpacity*=-1;
-    octx.beginPath(); octx.arc(s.x,s.y,s.r,0,Math.PI*2); 
-    octx.fillStyle=`rgba(255,255,255,${s.opacity})`; 
-    octx.shadowBlur=3; octx.shadowColor='white'; octx.fill(); 
-  }); 
-}
-setInterval(drawOverlayStars,100);
+        // Create VERTICAL party popper effect
+        function createPartyPopper() {
+            const popper = document.getElementById('partyPopper');
+            popper.style.display = 'block';
+            
+            // Create VERTICAL golden flares from left and right going UP
+            for (let i = 0; i < 12; i++) {
+                setTimeout(() => {
+                    // Left side flares
+                    const flareLeft = document.createElement('div');
+                    flareLeft.className = 'vertical-flare vertical-flare-left';
+                    flareLeft.style.left = (Math.random() * 30 + 10) + '%';
+                    flareLeft.style.animationDelay = (Math.random() * 0.5) + 's';
+                    popper.appendChild(flareLeft);
+                    
+                    // Right side flares
+                    const flareRight = document.createElement('div');
+                    flareRight.className = 'vertical-flare vertical-flare-right';
+                    flareRight.style.right = (Math.random() * 30 + 10) + '%';
+                    flareRight.style.animationDelay = (Math.random() * 0.5) + 's';
+                    popper.appendChild(flareRight);
+                    
+                    // Center flares
+                    const flareCenter = document.createElement('div');
+                    flareCenter.className = 'vertical-flare vertical-flare-center';
+                    flareCenter.style.animationDelay = (Math.random() * 0.5) + 's';
+                    popper.appendChild(flareCenter);
+                    
+                    setTimeout(() => {
+                        flareLeft.remove();
+                        flareRight.remove();
+                        flareCenter.remove();
+                    }, 2000);
+                }, i * 150);
+            }
+            
+            // Create golden poppers flying UP
+            for (let i = 0; i < 40; i++) {
+                setTimeout(() => {
+                    const popperElement = document.createElement('div');
+                    popperElement.className = 'popper';
+                    popperElement.textContent = '✨';
+                    popperElement.style.left = Math.random() * 100 + 'vw';
+                    popperElement.style.fontSize = Math.random() * 25 + 10 + 'px';
+                    popperElement.style.color = 'gold';
+                    popperElement.style.textShadow = '0 0 15px gold, 0 0 30px orange';
+                    popperElement.style.animationDuration = Math.random() * 2 + 1.5 + 's';
+                    popper.appendChild(popperElement);
+                    
+                    setTimeout(() => {
+                        popperElement.remove();
+                    }, 2500);
+                }, i * 80);
+            }
+            
+            // Hide popper after animation
+            setTimeout(() => {
+                popper.style.display = 'none';
+                popper.innerHTML = '';
+            }, 3500);
+        }
 
-const overlayInterval=setInterval(()=>{
-  count--; 
-  timerEl.textContent=count; 
-  if(count<=0){ 
-    clearInterval(overlayInterval); 
-    overlay.style.transition='opacity 1s'; overlay.style.opacity='0'; 
-    setTimeout(()=>overlay.style.display='none',1000); 
-    launchStageFireworks();
-  } 
-},1000);
+        // Create stars for all pages
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars('countdown-stars', 30);
+            createStars('main-stars', 50);
+            createStars('letter-stars', 40);
+            createStars('album-stars', 40);
+        });
 
-// Scroll reveal
-const scrollImages=document.querySelectorAll('.scroll-img');
-const paraSections=document.querySelectorAll('.para-section');
-function revealOnScroll(){
-  scrollImages.forEach(img=>{ if(img.getBoundingClientRect().top<window.innerHeight-100) img.classList.add('show'); });
-  paraSections.forEach(para=>{ if(para.getBoundingClientRect().top<window.innerHeight-50) para.classList.add('show'); });
-}
-window.addEventListener('scroll',revealOnScroll); revealOnScroll();
+        // Countdown Timer with VERTICAL Party Effect
+        let countdown = 5;
+        const countdownElement = document.querySelector('.countdown-number');
+        const countdownContainer = document.getElementById('countdown');
+        const mainPage = document.getElementById('main-page');
 
-// Stars background - moving & half
-const canvas=document.getElementById('stars'); 
-const ctx=canvas.getContext('2d'); 
-let w,h;
-function resize(){ w=canvas.width=window.innerWidth; h=canvas.height=window.innerHeight; }
-window.addEventListener('resize',resize); resize();
-const stars=Array.from({length:200},()=>({ x:Math.random()*w, y:Math.random()*h, r:Math.random()*2+0.5, opacity:Math.random(), dOpacity:(Math.random()*0.01)+0.002, vy:Math.random()*0.1+0.02 }));
-function drawStars(){ 
-  ctx.clearRect(0,0,w,h); 
-  stars.forEach(s=>{ 
-    s.opacity+=s.dOpacity; 
-    s.y -= s.vy; if(s.y<0) s.y=h; 
-    if(s.opacity>1||s.opacity<0) s.dOpacity*=-1; 
-    ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); 
-    ctx.fillStyle=`rgba(255,255,255,${s.opacity})`; 
-    ctx.shadowBlur=3; ctx.shadowColor='white'; 
-    ctx.fill(); 
-  }); 
-}
-setInterval(drawStars,100);
+        const countdownInterval = setInterval(() => {
+            countdown--;
+            countdownElement.textContent = countdown;
+            
+            if (countdown === 0) {
+                clearInterval(countdownInterval);
+                // Show VERTICAL party effect first
+                createPartyPopper();
+                // Then show main page after a delay
+                setTimeout(() => {
+                    countdownContainer.style.display = 'none';
+                    mainPage.style.display = 'block';
+                }, 1000);
+            }
+        }, 1000);
 
-// Button click overlay page
-const loveBtn=document.querySelector('.love-btn');
-loveBtn.addEventListener('click',()=>{
-  const newOverlay=document.createElement('div');
-  newOverlay.style.position='fixed';
-  newOverlay.style.top='0';
-  newOverlay.style.left='0';
-  newOverlay.style.width='100%';
-  newOverlay.style.height='100%';
-  newOverlay.style.background='url(cake_bg.jpg) center/cover no-repeat';
-  newOverlay.style.zIndex='9999';
-  newOverlay.style.display='flex';
-  newOverlay.style.flexDirection='column';
-  newOverlay.style.justifyContent='center';
-  newOverlay.style.alignItems='center';
-  newOverlay.style.textAlign='center';
-  newOverlay.style.overflow='hidden';
-  newOverlay.innerHTML=`
-    <img src="images6.jpg" style="width:90%; max-width:400px; border-radius:15px; margin-bottom:20px;">
-    <p style="color:#ff6ec7; font-size:1.5rem; font-family:'Montserrat',sans-serif; max-width:500px;">
-      I love you my wife. آپ کا ساری زندگی خیال رکھوں گا، ہمیشہ ہمیشہ ❤️
-    </p>
-    <canvas id="glitterCanvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;"></canvas>
-    <button id="goBackBtn" style="margin-top:20px; padding:12px 25px; font-size:1.2rem; font-weight:700; color:#fff; background:linear-gradient(45deg,#ff6ec7,#ff4dff,#ff69b4); border:none; border-radius:12px; cursor:pointer; box-shadow:0 0 15px rgba(255,105,180,0.7);">
-      Go Back
-    </button>
-  `;
-  document.body.appendChild(newOverlay);
+        // Page Navigation - FIXED SCROLL ISSUE
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            // Show selected page
+            const targetPage = document.getElementById(pageId);
+            targetPage.style.display = 'block';
+            
+            // Reset scroll to top
+            window.scrollTo(0, 0);
+            
+            // Special styling for love letter page
+            if (pageId === 'love-letter-page') {
+                targetPage.style.display = 'flex';
+            }
+        }
 
-  // Glitter animation
-  const gCanvas = document.getElementById('glitterCanvas');
-  const gCtx = gCanvas.getContext('2d');
-  gCanvas.width = window.innerWidth; gCanvas.height = window.innerHeight;
-  const glitters = [];
-  function addGlitter(){ glitters.push({x:Math.random()*w, y:0, vy:Math.random()*2+1, size:Math.random()*3+1, color:'gold'}); }
-  function animateGlitters(){
-    gCtx.clearRect(0,0,gCanvas.width,gCanvas.height);
-    addGlitter();
-    glitters.forEach((g,i)=>{
-      g.y += g.vy;
-      gCtx.beginPath();
-      gCtx.arc(g.x,g.y,g.size,0,Math.PI*2);
-      gCtx.fillStyle = g.color;
-      gCtx.fill();
-      if(g.y>gCanvas.height) glitters.splice(i,1);
-    });
-    requestAnimationFrame(animateGlitters);
-  }
-  animateGlitters();
+        // Add floating hearts for main page
+        function createHearts() {
+            const heart = document.createElement('div');
+            heart.style.position = 'fixed';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '100vh';
+            heart.style.opacity = '0.7';
+            heart.style.zIndex = '1';
+            heart.style.color = '#ff69b4';
+            heart.textContent = '💖';
+            heart.style.animation = `floatUp ${Math.random() * 3 + 3}s linear forwards`;
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
 
-  document.getElementById('goBackBtn').addEventListener('click',()=>{
-    newOverlay.remove();
-  });
-});
+        // Add CSS for heart animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes floatUp {
+                0% {
+                    transform: translateY(0) rotate(0deg);
+                    opacity: 0.7;
+                }
+                100% {
+                    transform: translateY(-100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
 
-// Fireworks - Gold flares (upward)
-const fwCanvas=document.getElementById('fireworks'); const fwCtx=fwCanvas.getContext('2d'); fwCanvas.width=window.innerWidth; fwCanvas.height=window.innerHeight; const particles=[];
-class Particle{ constructor(x,y,vy){ this.x=x; this.y=y; this.vx=(Math.random()-0.5)*1; this.vy=vy; this.alpha=1; this.color='gold'; } update(){ this.x+=this.vx; this.y+=this.vy; this.alpha-=0.01; } draw(){ fwCtx.globalAlpha=this.alpha; fwCtx.beginPath(); fwCtx.arc(this.x,this.y,2,0,Math.PI*2); fwCtx.fillStyle=this.color; fwCtx.fill(); fwCtx.globalAlpha=1; } }
-function createFirework(x){ for(let i=0;i<30;i++){ particles.push(new Particle(x,h-10,-(Math.random()*4+3))); } }
-let fwTime=0; function animateFW(){ fwCtx.clearRect(0,0,w,h); particles.forEach(p=>{ p.update(); p.draw(); }); for(let i=particles.length-1;i>=0;i--){ if(particles[i].alpha<=0) particles.splice(i,1); } if(Math.random()<0.05){ createFirework(Math.random()<0.5?50:w-50); } requestAnimationFrame(animateFW); }
-animateFW();
-</script>
+        // Create hearts periodically
+        setInterval(createHearts, 500);
+    </script>
 </body>
 </html>
-
-
-
