@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday My Love!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background: #000;
+        }
+
+        /* === COUNTDOWN TIMER === */
+        #countdown {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #2c003e 0%, #6a0dad 50%, #8b0000 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .countdown-text {
+            font-size: 5vw;
+            color: #ff1493;
+            text-shadow: 0 0 20px #ff1493, 0 0 30px #ff1493;
+            margin-bottom: 4vw;
+            animation: gentlePulse 2s ease-in-out infinite alternate;
+            text-align: center;
+            padding: 0 5vw;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .countdown-number {
+            font-size: 15vw;
+            color: #ff1493;
+            text-shadow: 0 0 20px #ff1493, 0 0 30px #ff1493;
+            animation: gentlePulse 1.5s ease-in-out infinite alternate;
+            font-weight: 700;
+        }
+
+        @keyframes gentlePulse {
+            from {
+                text-shadow: 0 0 10px #ff1493, 0 0 20px #ff1493;
+            }
+            to {
+                text-shadow: 0 0 15px #ff1493, 0 0 25px #ff1493;
+            }
+        }
+
+        /* === HEARTS RAIN EFFECT === */
+        .hearts-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 998;
+            display: none;
+        }
+
+        .falling-heart {
+            position: absolute;
+            font-size: 1.5vw;
+            animation: heartFall linear forwards;
+            opacity: 0.8;
+        }
+
+        @keyframes heartFall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* === PREMIUM BACKGROUND === */
+        .premium-bg {
+            background: linear-gradient(135deg, #1a001a 0%, #4b0082 25%, #8b0000 50%, #4b0082 75%, #1a001a 100%);
+            background-size: 400% 400%;
+            animation: premiumShift 8s ease infinite;
+            position: relative;
+        }
+
+        @keyframes premiumShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* === GLOWING STARS === */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkleGlow linear infinite;
+            box-shadow: 0 0 8px #ff69b4;
+        }
+
+        @keyframes twinkleGlow {
+            0%, 100% { 
+                opacity: 0.3; 
+                transform: scale(0.5) translateX(0);
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1.2) translateX(2px);
+            }
+        }
+
+        /* === MAIN PAGE === */
+        #main-page {
+            display: none;
+            min-height: 100vh;
+            padding: 5vw;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* === VIDEO CAKE === */
+        .video-cake {
+            width: 80vw;
+            max-width: 400px;
+            height: 80vw;
+            max-height: 400px;
+            margin: 5vw auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 
+                0 0 30px rgba(255, 20, 147, 0.5),
+                0 0 50px rgba(255, 20, 147, 0.3);
+            border: 2px solid rgba(255, 20, 147, 0.3);
+            animation: gentleFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% { 
+                transform: translateY(0px); 
+            }
+            50% { 
+                transform: translateY(-10px); 
+            }
+        }
+
+        .video-cake video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        /* === STYLISH TITLE === */
+        .stylish-title {
+            margin-top: 5vw;
+            font-size: 7vw;
+            color: #ff69b4;
+            font-weight: 700;
+            text-shadow: 
+                0 0 10px #ff69b4,
+                0 0 20px #ff69b4;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+            letter-spacing: 2px;
+            font-family: 'Brush Script MT', cursive;
+            background: linear-gradient(45deg, #ff69b4, #ff1493, #ff69b4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        @keyframes titleGlow {
+            from {
+                text-shadow: 
+                    0 0 5px #ff69b4,
+                    0 0 10px #ff69b4;
+            }
+            to {
+                text-shadow: 
+                    0 0 10px #ff69b4,
+                    0 0 20px #ff69b4,
+                    0 0 30px #ff1493;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .stylish-title {
+                font-size: 4vw;
+            }
+        }
+
+        /* === INSTAGRAM 4:5 RATIO PHOTO 1 === */
+        .instagram-photo-1 {
+            width: 80vw;
+            max-width: 320px; /* 4:5 ratio - width 320px, height 400px */
+            height: 100vw;
+            max-height: 400px;
+            margin: 5vw auto;
+            position: relative;
+            animation: gentleMove 3s ease-in-out infinite;
+            box-shadow: 
+                0 0 25px rgba(255, 105, 180, 0.4),
+                0 0 40px rgba(255, 105, 180, 0.2);
+            border: 3px solid rgba(255, 105, 180, 0.4);
+            border-radius: 15px;
+            overflow: hidden;
+            background: linear-gradient(45deg, #ff69b4, #8b0000, #4b0082);
+        }
+
+        @keyframes gentleMove {
+            0%, 100% { 
+                transform: translateX(0px) translateY(0px) rotate(0deg);
+            }
+            25% { 
+                transform: translateX(-5px) translateY(-3px) rotate(-1deg);
+            }
+            50% { 
+                transform: translateX(5px) translateY(-5px) rotate(1deg);
+            }
+            75% { 
+                transform: translateX(-3px) translateY(3px) rotate(-0.5deg);
+            }
+        }
+
+        .instagram-photo-1 img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(1.05) saturate(1.1);
+        }
+
+        /* === PREMIUM URDU POETRY === */
+        .premium-urdu {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            padding: 6vw;
+            border-radius: 20px;
+            margin: 5vw auto;
+            max-width: 600px;
+            color: #ff6bcd;
+            font-size: 5vw;
+            line-height: 2;
+            border: 1px solid rgba(255, 105, 180, 0.3);
+            box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.2),
+                inset 0 0 15px rgba(255, 105, 180, 0.1);
+            font-family: 'Jameel Noori Nastaleeq', 'Urdu Typesetting', 'Noto Nastaliq Urdu', serif;
+            text-align: center;
+            direction: rtl;
+            animation: fadeInUp 2s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .premium-urdu {
+                font-size: 2vw;
+                padding: 3vw;
+            }
+        }
+
+        /* === INSTAGRAM 4:5 RATIO PHOTO 6 === */
+        .instagram-photo-6 {
+            width: 80vw;
+            max-width: 320px; /* 4:5 ratio - width 320px, height 400px */
+            height: 100vw;
+            max-height: 400px;
+            margin: 5vw auto;
+            position: relative;
+            animation: photoGlow 4s ease-in-out infinite;
+            box-shadow: 
+                0 0 30px rgba(255, 105, 180, 0.5),
+                0 0 50px rgba(255, 105, 180, 0.3);
+            border: 3px solid rgba(255, 105, 180, 0.4);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        @keyframes photoGlow {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 0 30px rgba(255, 105, 180, 0.5);
+            }
+            50% { 
+                transform: scale(1.02);
+                box-shadow: 0 0 40px rgba(255, 105, 180, 0.7);
+            }
+        }
+
+        .instagram-photo-6 img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        /* === ROMANTIC TEXT BELOW SECOND PHOTO === */
+        .romantic-text {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 5vw;
+            border-radius: 15px;
+            margin: 5vw auto;
+            max-width: 600px;
+            color: white;
+            font-size: 4vw;
+            line-height: 1.6;
+            border: 1px solid rgba(255, 105, 180, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 2s ease-out;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .romantic-text {
+                font-size: 1.8vw;
+                padding: 3vw;
+            }
+        }
+
+        /* === DIRECT LOVE LETTER === */
+        .direct-letter {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 6vw;
+            border-radius: 20px;
+            margin: 5vw auto;
+            max-width: 700px;
+            box-shadow: 
+                0 15px 35px rgba(0,0,0,0.2);
+            border: 2px solid rgba(255, 105, 180, 0.2);
+            position: relative;
+            z-index: 2;
+            animation: letterReveal 2s ease-out;
+        }
+
+        @keyframes letterReveal {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .direct-letter h2 {
+            color: #ff1493;
+            margin-bottom: 4vw;
+            font-size: 6vw;
+            font-family: 'Brush Script MT', cursive;
+            animation: fadeIn 2s ease-in;
+            text-align: center;
+        }
+
+        .direct-letter p {
+            font-size: 4vw;
+            line-height: 1.8;
+            color: #333;
+            text-align: left;
+            animation: textFlow 3s ease-in-out;
+        }
+
+        @keyframes textFlow {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .direct-letter {
+                padding: 4vw;
+            }
+            .direct-letter h2 {
+                font-size: 3vw;
+                margin-bottom: 2vw;
+            }
+            .direct-letter p {
+                font-size: 1.5vw;
+            }
+        }
+
+        /* === SINGLE BUTTON === */
+        .single-btn {
+            background: linear-gradient(135deg, #ff69b4 0%, #8b0000 100%);
+            color: white;
+            border: none;
+            padding: 4vw 10vw;
+            font-size: 5vw;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 5vw auto;
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+            animation: gentleMoveBtn 3s ease-in-out infinite;
+            font-weight: 600;
+            display: block;
+            min-width: 60vw;
+        }
+
+        @keyframes gentleMoveBtn {
+            0%, 100% { 
+                transform: translateX(0px);
+            }
+            25% { 
+                transform: translateX(-3px);
+            }
+            50% { 
+                transform: translateX(3px);
+            }
+            75% { 
+                transform: translateX(-1px);
+            }
+        }
+
+        .single-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 105, 180, 0.6);
+            animation: none;
+        }
+
+        @media (min-width: 768px) {
+            .single-btn {
+                font-size: 2vw;
+                padding: 2vw 5vw;
+                min-width: 30vw;
+            }
+        }
+
+        /* === PHOTO ALBUM PAGE === */
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding: 5vw;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        #photo-album-page {
+            text-align: center;
+        }
+
+        .premium-photo-item {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 5vw auto;
+            padding: 5vw;
+            border-radius: 15px;
+            max-width: 90vw;
+            box-shadow: 
+                0 10px 25px rgba(0,0,0,0.15);
+            position: relative;
+            z-index: 2;
+            animation: photoSlide 1s ease-out;
+        }
+
+        @keyframes photoSlide {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .album-photo-frame {
+            width: 80vw;
+            max-width: 320px; /* 4:5 ratio for all album photos */
+            height: 100vw;
+            max-height: 400px;
+            margin: 0 auto 4vw;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 
+                0 8px 20px rgba(0,0,0,0.2);
+            border: 2px solid rgba(255, 105, 180, 0.2);
+        }
+
+        .album-photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.4s ease;
+        }
+
+        .album-photo-frame img:hover {
+            transform: scale(1.05);
+        }
+
+        .premium-photo-desc {
+            color: #333;
+            font-size: 4vw;
+            line-height: 1.6;
+            animation: fadeIn 2s ease-in;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        @media (min-width: 768px) {
+            .premium-photo-item {
+                margin: 2vw auto;
+                padding: 2vw;
+                max-width: 600px;
+            }
+            .album-photo-frame {
+                max-width: 320px;
+                max-height: 400px;
+            }
+            .premium-photo-desc {
+                font-size: 1.5vw;
+            }
+        }
+    </style>
+    
+    <!-- Urdu Font Support -->
+    <link href="https://fonts.alkalami.net/font.css" rel="stylesheet">
+</head>
+<body>
+    <!-- COUNTDOWN TIMER -->
+    <div id="countdown" class="premium-bg">
+        <div class="stars" id="countdown-stars"></div>
+        <div class="countdown-text">Wait Is Over My Wife</div>
+        <div class="countdown-number">5</div>
+    </div>
+
+    <!-- HEARTS RAIN EFFECT -->
+    <div class="hearts-rain" id="heartsRain"></div>
+
+    <!-- MAIN PAGE - NEW STRUCTURE -->
+    <div id="main-page" class="page premium-bg">
+        <div class="stars" id="main-stars"></div>
+        
+        <!-- VIDEO CAKE -->
+        <div class="video-cake">
+            <video autoplay muted loop>
+                <source src="vid1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        
+        <!-- STYLISH TITLE -->
+        <div class="stylish-title">Happy Birthday My Love! 💖</div>
+        
+        <!-- FIRST PHOTO - INSTAGRAM 4:5 RATIO -->
+        <div class="instagram-photo-1">
+            <img src="pic1.jpg" alt="Our Beautiful Photo">
+        </div>
+        
+        <!-- URDU POETRY -->
+        <div class="premium-urdu">
+            محبت ہے اسی کو جسے عالم میں پایا نہیں<br>
+            وہی ایک ہستی ہے جو ہر جان میں سمائی نہیں<br><br>
+            
+            گلون میں رنگ بھرے بادِ نو بہار چلے<br>
+            چلے بھی آؤ کہ گلشن کا کاروبار چلے
+        </div>
+        
+        <!-- SECOND PHOTO - INSTAGRAM 4:5 RATIO -->
+        <div class="instagram-photo-6">
+            <img src="pic6.png" alt="Our Special Moment">
+        </div>
+        
+        <!-- ROMANTIC TEXT -->
+        <div class="romantic-text">
+            "You are the most beautiful part of my life. Every moment with you feels like a blessing. 
+            Your smile lights up my world, and your love completes my soul. 
+            Today, I celebrate not just your birthday, but the incredible woman you are."
+        </div>
+        
+        <!-- DIRECT LOVE LETTER -->
+        <div class="direct-letter">
+            <h2>My Dearest Love 💖</h2>
+            <p>
+                My Beautiful Wife,<br><br>
+                
+                On your special day, I want to remind you how much you mean to me. 
+                You are the sunshine that brightens my darkest days, the laughter 
+                that fills our home with joy, and the love that completes my soul.<br><br>
+                
+                Watching you grow and achieve your dreams has been my greatest privilege. 
+                Your strength inspires me, your kindness humbles me, and your love 
+                transforms me into a better person every single day.<br><br>
+                
+                Today, I celebrate not just your birthday, but the incredible woman you are. 
+                May this year bring you all the happiness, success, and love you truly deserve.<br><br>
+                
+                Forever and always,<br>
+                Your Loving Husband
+            </p>
+        </div>
+        
+        <!-- SINGLE BUTTON -->
+        <button class="single-btn" onclick="showPage('photo-album-page')">
+            میری بیگم نیکسٹ کریں 👉
+        </button>
+    </div>
+
+    <!-- PHOTO ALBUM PAGE -->
+    <div id="photo-album-page" class="page premium-bg">
+        <div class="stars" id="album-stars"></div>
+        <h2 style="color: #ff69b4; margin-bottom: 5vw; position: relative; z-index: 2; font-size: 6vw; animation: fadeIn 1s ease-in; text-align: center; font-family: 'Brush Script MT', cursive;">
+            Our Beautiful Memories 📸
+        </h2>
+        
+        <div class="premium-photo-item">
+            <div class="album-photo-frame">
+                <img src="pic2.jpg" alt="Our First Meeting">
+            </div>
+            <div class="premium-photo-desc">The day my life changed forever - when I first saw your beautiful smile!</div>
+        </div>
+        
+        <div class="premium-photo-item">
+            <div class="album-photo-frame">
+                <img src="pic3.jpg" alt="Our Wedding Day">
+            </div>
+            <div class="premium-photo-desc">The happiest day of my life - when I got to call you my wife!</div>
+        </div>
+        
+        <div class="premium-photo-item">
+            <div class="album-photo-frame">
+                <img src="pic4.jpg" alt="Vacation Memories">
+            </div>
+            <div class="premium-photo-desc">Exploring the world together and creating unforgettable memories!</div>
+        </div>
+        
+        <div class="premium-photo-item">
+            <div class="album-photo-frame">
+                <img src="pic5.jpg" alt="Everyday Happiness">
+            </div>
+            <div class="premium-photo-desc">Those simple moments at home that mean everything to me!</div>
+        </div>
+        
+        <button class="single-btn" onclick="showPage('main-page')">
+            🏠 واپس ہوم
+        </button>
+    </div>
+
+    <script>
+        // Create stars function
+        function createStars(containerId, count = 50) {
+            const container = document.getElementById(containerId);
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.width = Math.random() * 3 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDuration = Math.random() * 5 + 3 + 's';
+                star.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(star);
+            }
+        }
+
+        // Create continuous hearts rain
+        function startHeartsRain() {
+            const heartsRain = document.getElementById('heartsRain');
+            heartsRain.style.display = 'block';
+            
+            function createHeart() {
+                const heart = document.createElement('div');
+                heart.className = 'falling-heart';
+                heart.textContent = '💖';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                heart.style.color = Math.random() > 0.5 ? '#ff69b4' : '#ff1493';
+                heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                heart.style.textShadow = '0 0 10px currentColor';
+                heartsRain.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 8000);
+            }
+            
+            // Create hearts continuously
+            setInterval(createHeart, 300);
+        }
+
+        // Create stars for all pages
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars('countdown-stars', 30);
+            createStars('main-stars', 50);
+            createStars('album-stars', 40);
+        });
+
+        // Countdown Timer with Hearts Rain
+        let countdown = 5;
+        const countdownElement = document.querySelector('.countdown-number');
+        const countdownContainer = document.getElementById('countdown');
+        const mainPage = document.getElementById('main-page');
+
+        const countdownInterval = setInterval(() => {
+            countdown--;
+            countdownElement.textContent = countdown;
+            
+            if (countdown === 0) {
+                clearInterval(countdownInterval);
+                // Start hearts rain
+                startHeartsRain();
+                // Then show main page
+                setTimeout(() => {
+                    countdownContainer.style.display = 'none';
+                    mainPage.style.display = 'block';
+                }, 500);
+            }
+        }, 1000);
+
+        // Page Navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).style.display = 'block';
+            
+            // Reset scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Add floating hearts for main page
+        function createFloatingHearts() {
+            const heart = document.createElement('div');
+            heart.style.position = 'fixed';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '100vh';
+            heart.style.opacity = '0.7';
+            heart.style.zIndex = '1';
+            heart.style.color = '#ff69b4';
+            heart.textContent = '💖';
+            heart.style.animation = `floatUp ${Math.random() * 3 + 3}s linear forwards`;
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+
+        // Add CSS for heart animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes floatUp {
+                0% {
+                    transform: translateY(0) rotate(0deg);
+                    opacity: 0.7;
+                }
+                100% {
+                    transform: translateY(-100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Create floating hearts periodically
+        setInterval(createFloatingHearts, 800);
+    </script>
+</body>
+</html>
