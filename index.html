@@ -61,77 +61,40 @@
             }
         }
 
-        /* === VERTICAL PARTY POPPER EFFECT === */
-        .party-popper {
+        /* === HEARTS RAIN EFFECT === */
+        .hearts-rain {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 999;
+            z-index: 998;
             display: none;
         }
 
-        .popper {
+        .falling-heart {
             position: absolute;
-            font-size: 2vw;
-            animation: popperFlyVertical 2s ease-out forwards;
+            font-size: 1.5vw;
+            animation: heartFall linear forwards;
+            opacity: 0.8;
         }
 
-        @keyframes popperFlyVertical {
+        @keyframes heartFall {
             0% {
-                transform: translateY(100vh) rotate(0deg) scale(0);
-                opacity: 1;
-            }
-            50% {
-                transform: translateY(50vh) rotate(180deg) scale(1.5);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg) scale(1);
+                transform: translateY(-100px) rotate(0deg);
                 opacity: 0;
             }
-        }
-
-        .vertical-flare {
-            position: absolute;
-            width: 5px;
-            height: 100px;
-            background: linear-gradient(180deg, transparent, gold, gold, transparent);
-            animation: verticalFlareMove 2s ease-out;
-        }
-
-        @keyframes verticalFlareMove {
-            0% {
-                transform: translateY(100vh) scaleY(0);
-                opacity: 0;
-            }
-            30% {
-                transform: translateY(70vh) scaleY(1);
-                opacity: 1;
-            }
-            70% {
-                transform: translateY(30vh) scaleY(0.8);
+            10% {
                 opacity: 0.8;
             }
+            90% {
+                opacity: 0.6;
+            }
             100% {
-                transform: translateY(-100px) scaleY(0);
+                transform: translateY(100vh) rotate(360deg);
                 opacity: 0;
             }
-        }
-
-        .vertical-flare-left {
-            left: 20%;
-        }
-
-        .vertical-flare-right {
-            right: 20%;
-        }
-
-        .vertical-flare-center {
-            left: 50%;
-            transform: translateX(-50%);
         }
 
         /* === PREMIUM BACKGROUND === */
@@ -178,7 +141,7 @@
             }
         }
 
-        /* === MAIN PAGE - NO SCROLL ISSUE FIX === */
+        /* === MAIN PAGE === */
         #main-page {
             display: none;
             min-height: 100vh;
@@ -188,8 +151,8 @@
             overflow: hidden;
         }
 
-        /* === VIDEO CAKE === */
-        .video-cake {
+        /* === SVG CAKE === */
+        .svg-cake {
             width: 80vw;
             max-width: 400px;
             height: 80vw;
@@ -202,6 +165,11 @@
                 0 0 50px rgba(255, 20, 147, 0.3);
             border: 2px solid rgba(255, 20, 147, 0.3);
             animation: gentleFloat 4s ease-in-out infinite;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         @keyframes gentleFloat {
@@ -213,11 +181,10 @@
             }
         }
 
-        .video-cake video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: brightness(1.1) contrast(1.1);
+        .cake-svg {
+            width: 80%;
+            height: 80%;
+            filter: drop-shadow(0 0 10px rgba(255, 105, 180, 0.6));
         }
 
         /* === STYLISH TITLE === */
@@ -258,23 +225,22 @@
             }
         }
 
-        /* === GENTLE MOVING PHOTO === */
-        .gentle-moving-photo {
-            width: 60vw;
-            max-width: 280px;
-            height: 60vw;
-            max-height: 280px;
-            border-radius: 50%;
+        /* === INSTAGRAM 4:5 RATIO PHOTO 1 === */
+        .instagram-photo-1 {
+            width: 80vw;
+            max-width: 320px; /* 4:5 ratio - width 320px, height 400px */
+            height: 100vw;
+            max-height: 400px;
             margin: 5vw auto;
             position: relative;
             animation: gentleMove 3s ease-in-out infinite;
             box-shadow: 
                 0 0 25px rgba(255, 105, 180, 0.4),
                 0 0 40px rgba(255, 105, 180, 0.2);
-            border: 3px solid transparent;
-            background: linear-gradient(45deg, #ff69b4, #8b0000, #4b0082);
-            background-clip: padding-box;
+            border: 3px solid rgba(255, 105, 180, 0.4);
+            border-radius: 15px;
             overflow: hidden;
+            background: linear-gradient(45deg, #ff69b4, #8b0000, #4b0082);
         }
 
         @keyframes gentleMove {
@@ -292,11 +258,10 @@
             }
         }
 
-        .gentle-moving-photo img {
+        .instagram-photo-1 img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 50%;
             filter: brightness(1.05) saturate(1.1);
         }
 
@@ -339,73 +304,72 @@
             }
         }
 
-        /* === GENTLE BUTTON === */
-        .gentle-btn {
-            background: linear-gradient(135deg, #ff69b4 0%, #8b0000 100%);
-            color: white;
-            border: none;
-            padding: 4vw 8vw;
-            font-size: 5vw;
-            border-radius: 50px;
-            cursor: pointer;
-            margin: 5vw 0;
-            box-shadow: 
-                0 4px 15px rgba(255, 105, 180, 0.4);
-            transition: all 0.4s ease;
-            animation: gentlePulseBtn 2s ease-in-out infinite;
-            font-weight: 600;
-            letter-spacing: 1px;
+        /* === INSTAGRAM 4:5 RATIO PHOTO 6 === */
+        .instagram-photo-6 {
+            width: 80vw;
+            max-width: 320px; /* 4:5 ratio - width 320px, height 400px */
+            height: 100vw;
+            max-height: 400px;
+            margin: 5vw auto;
             position: relative;
+            animation: photoGlow 4s ease-in-out infinite;
+            box-shadow: 
+                0 0 30px rgba(255, 105, 180, 0.5),
+                0 0 50px rgba(255, 105, 180, 0.3);
+            border: 3px solid rgba(255, 105, 180, 0.4);
+            border-radius: 15px;
             overflow: hidden;
         }
 
-        @keyframes gentlePulseBtn {
+        @keyframes photoGlow {
             0%, 100% { 
                 transform: scale(1);
-                box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+                box-shadow: 0 0 30px rgba(255, 105, 180, 0.5);
             }
             50% { 
-                transform: scale(1.03);
-                box-shadow: 0 6px 20px rgba(255, 105, 180, 0.6);
+                transform: scale(1.02);
+                box-shadow: 0 0 40px rgba(255, 105, 180, 0.7);
             }
         }
 
-        .gentle-btn:hover {
-            animation: none;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.7);
+        .instagram-photo-6 img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        /* === ROMANTIC TEXT BELOW SECOND PHOTO === */
+        .romantic-text {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 5vw;
+            border-radius: 15px;
+            margin: 5vw auto;
+            max-width: 600px;
+            color: white;
+            font-size: 4vw;
+            line-height: 1.6;
+            border: 1px solid rgba(255, 105, 180, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 2s ease-out;
+            text-align: center;
         }
 
         @media (min-width: 768px) {
-            .gentle-btn {
-                font-size: 2vw;
-                padding: 2vw 4vw;
+            .romantic-text {
+                font-size: 1.8vw;
+                padding: 3vw;
             }
         }
 
-        /* === LOVE LETTER PAGE - SEPARATE PAGE === */
-        .page {
-            display: none;
-            min-height: 100vh;
-            padding: 5vw;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        #love-letter-page {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .premium-letter {
+        /* === DIRECT LOVE LETTER === */
+        .direct-letter {
             background: rgba(255, 255, 255, 0.95);
-            padding: 8vw;
+            padding: 6vw;
             border-radius: 20px;
-            max-width: 800px;
-            margin: 0 auto;
+            margin: 5vw auto;
+            max-width: 700px;
             box-shadow: 
                 0 15px 35px rgba(0,0,0,0.2);
             border: 2px solid rgba(255, 105, 180, 0.2);
@@ -425,15 +389,16 @@
             }
         }
 
-        .premium-letter h2 {
+        .direct-letter h2 {
             color: #ff1493;
-            margin-bottom: 5vw;
+            margin-bottom: 4vw;
             font-size: 6vw;
             font-family: 'Brush Script MT', cursive;
             animation: fadeIn 2s ease-in;
+            text-align: center;
         }
 
-        .premium-letter p {
+        .direct-letter p {
             font-size: 4vw;
             line-height: 1.8;
             color: #333;
@@ -453,42 +418,33 @@
         }
 
         @media (min-width: 768px) {
-            .premium-letter {
+            .direct-letter {
                 padding: 4vw;
             }
-            .premium-letter h2 {
+            .direct-letter h2 {
                 font-size: 3vw;
                 margin-bottom: 2vw;
             }
-            .premium-letter p {
+            .direct-letter p {
                 font-size: 1.5vw;
             }
         }
 
-        /* === GENTLE NAV BUTTONS === */
-        .gentle-nav {
-            margin-top: 8vw;
-            position: relative;
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            gap: 3vw;
-            align-items: center;
-            animation: fadeIn 2s ease-in;
-        }
-
-        .nav-main-gentle {
+        /* === SINGLE BUTTON === */
+        .single-btn {
             background: linear-gradient(135deg, #ff69b4 0%, #8b0000 100%);
             color: white;
             border: none;
             padding: 4vw 10vw;
+            font-size: 5vw;
             border-radius: 50px;
             cursor: pointer;
-            font-size: 5vw;
+            margin: 5vw auto;
             box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
-            min-width: 60vw;
             animation: gentleMoveBtn 3s ease-in-out infinite;
             font-weight: 600;
+            display: block;
+            min-width: 60vw;
         }
 
         @keyframes gentleMoveBtn {
@@ -506,42 +462,33 @@
             }
         }
 
-        .nav-back-gentle {
-            background: linear-gradient(135deg, #4b0082 0%, #8b0000 100%);
-            color: white;
-            border: none;
-            padding: 3vw 8vw;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 4vw;
-            box-shadow: 0 4px 12px rgba(75, 0, 130, 0.4);
-            min-width: 40vw;
-            transition: all 0.3s ease;
+        .single-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 105, 180, 0.6);
+            animation: none;
         }
 
         @media (min-width: 768px) {
-            .gentle-nav {
-                margin-top: 4vw;
-                gap: 1.5vw;
-            }
-            .nav-main-gentle {
+            .single-btn {
                 font-size: 2vw;
                 padding: 2vw 5vw;
                 min-width: 30vw;
             }
-            .nav-back-gentle {
-                font-size: 1.5vw;
-                padding: 1.5vw 4vw;
-                min-width: 20vw;
-            }
         }
 
-        .nav-main-gentle:hover, .nav-back-gentle:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 105, 180, 0.6);
+        /* === PHOTO ALBUM PAGE === */
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding: 5vw;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* === PHOTO ALBUM === */
+        #photo-album-page {
+            text-align: center;
+        }
+
         .premium-photo-item {
             background: rgba(255, 255, 255, 0.95);
             margin: 5vw auto;
@@ -566,11 +513,11 @@
             }
         }
 
-        .premium-photo-frame {
+        .album-photo-frame {
             width: 80vw;
-            max-width: 500px;
-            height: 50vw;
-            max-height: 350px;
+            max-width: 320px; /* 4:5 ratio for all album photos */
+            height: 100vw;
+            max-height: 400px;
             margin: 0 auto 4vw;
             border-radius: 15px;
             overflow: hidden;
@@ -579,14 +526,14 @@
             border: 2px solid rgba(255, 105, 180, 0.2);
         }
 
-        .premium-photo-frame img {
+        .album-photo-frame img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: all 0.4s ease;
         }
 
-        .premium-photo-frame img:hover {
+        .album-photo-frame img:hover {
             transform: scale(1.05);
         }
 
@@ -605,6 +552,10 @@
                 padding: 2vw;
                 max-width: 600px;
             }
+            .album-photo-frame {
+                max-width: 320px;
+                max-height: 400px;
+            }
             .premium-photo-desc {
                 font-size: 1.5vw;
             }
@@ -622,30 +573,64 @@
         <div class="countdown-number">5</div>
     </div>
 
-    <!-- VERTICAL PARTY POPPER EFFECT -->
-    <div class="party-popper" id="partyPopper"></div>
+    <!-- HEARTS RAIN EFFECT -->
+    <div class="hearts-rain" id="heartsRain"></div>
 
-    <!-- MAIN PAGE - ONLY MAIN CONTENT -->
+    <!-- MAIN PAGE - NEW STRUCTURE -->
     <div id="main-page" class="page premium-bg">
         <div class="stars" id="main-stars"></div>
         
-        <!-- VIDEO CAKE -->
-        <div class="video-cake">
-            <video autoplay muted loop>
-                <source src="vid1.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+        <!-- SVG CAKE -->
+        <div class="svg-cake">
+            <svg class="cake-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Cake Base -->
+                <rect x="20" y="50" width="60" height="20" rx="10" fill="#ff69b4" filter="url(#glow)"/>
+                <!-- Cake Top -->
+                <rect x="25" y="40" width="50" height="15" rx="8" fill="#ff1493"/>
+                <!-- Cream Drops -->
+                <circle cx="30" cy="38" r="4" fill="#ffffff"/>
+                <circle cx="45" cy="36" r="3" fill="#ffffff"/>
+                <circle cx="60" cy="38" r="4" fill="#ffffff"/>
+                <circle cx="75" cy="36" r="3" fill="#ffffff"/>
+                <!-- Candles -->
+                <rect x="47" y="20" width="6" height="20" fill="#ffffff"/>
+                <rect x="52" y="15" width="4" height="5" fill="#ff9500"/>
+                <!-- Flame -->
+                <circle cx="54" cy="12" r="3" fill="#ff9500" filter="url(#flameGlow)"/>
+                <!-- Decorations -->
+                <circle cx="35" cy="55" r="2" fill="#ffffff"/>
+                <circle cx="50" cy="58" r="2" fill="#ffffff"/>
+                <circle cx="65" cy="55" r="2" fill="#ffffff"/>
+                
+                <defs>
+                    <filter id="glow">
+                        <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                    <filter id="flameGlow">
+                        <feGaussianBlur stdDeviation="1.5" result="blur"/>
+                        <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -8" result="glow"/>
+                        <feMerge>
+                            <feMergeNode in="glow"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+            </svg>
         </div>
         
         <!-- STYLISH TITLE -->
         <div class="stylish-title">Happy Birthday My Love! 💖</div>
         
-        <!-- GENTLE MOVING PHOTO -->
-        <div class="gentle-moving-photo">
+        <!-- FIRST PHOTO - INSTAGRAM 4:5 RATIO -->
+        <div class="instagram-photo-1">
             <img src="pic1.jpg" alt="Our Beautiful Photo">
         </div>
         
-        <!-- PREMIUM URDU POETRY -->
+        <!-- URDU POETRY -->
         <div class="premium-urdu">
             محبت ہے اسی کو جسے عالم میں پایا نہیں<br>
             وہی ایک ہستی ہے جو ہر جان میں سمائی نہیں<br><br>
@@ -654,16 +639,20 @@
             چلے بھی آؤ کہ گلشن کا کاروبار چلے
         </div>
         
-        <!-- GENTLE BUTTON - THIS GOES TO LOVE LETTER PAGE -->
-        <button class="gentle-btn" onclick="showPage('love-letter-page')">
-            💌 Open My Love Letter
-        </button>
-    </div>
-
-    <!-- LOVE LETTER PAGE - SEPARATE PAGE -->
-    <div id="love-letter-page" class="page premium-bg">
-        <div class="stars" id="letter-stars"></div>
-        <div class="premium-letter">
+        <!-- SECOND PHOTO - INSTAGRAM 4:5 RATIO -->
+        <div class="instagram-photo-6">
+            <img src="pic6.png" alt="Our Special Moment">
+        </div>
+        
+        <!-- ROMANTIC TEXT -->
+        <div class="romantic-text">
+            "You are the most beautiful part of my life. Every moment with you feels like a blessing. 
+            Your smile lights up my world, and your love completes my soul. 
+            Today, I celebrate not just your birthday, but the incredible woman you are."
+        </div>
+        
+        <!-- DIRECT LOVE LETTER -->
+        <div class="direct-letter">
             <h2>My Dearest Love 💖</h2>
             <p>
                 My Beautiful Wife,<br><br>
@@ -684,18 +673,13 @@
             </p>
         </div>
         
-        <!-- GENTLE NAV BUTTONS -->
-        <div class="gentle-nav">
-            <button class="nav-main-gentle" onclick="showPage('photo-album-page')">
-                میری بیگم نیکسٹ کریں 👉
-            </button>
-            <button class="nav-back-gentle" onclick="showPage('main-page')">
-                🔙 بیک
-            </button>
-        </div>
+        <!-- SINGLE BUTTON -->
+        <button class="single-btn" onclick="showPage('photo-album-page')">
+            میری بیگم نیکسٹ کریں 👉
+        </button>
     </div>
 
-    <!-- PHOTO ALBUM PAGE - SEPARATE PAGE -->
+    <!-- PHOTO ALBUM PAGE -->
     <div id="photo-album-page" class="page premium-bg">
         <div class="stars" id="album-stars"></div>
         <h2 style="color: #ff69b4; margin-bottom: 5vw; position: relative; z-index: 2; font-size: 6vw; animation: fadeIn 1s ease-in; text-align: center; font-family: 'Brush Script MT', cursive;">
@@ -703,41 +687,36 @@
         </h2>
         
         <div class="premium-photo-item">
-            <div class="premium-photo-frame">
+            <div class="album-photo-frame">
                 <img src="pic2.jpg" alt="Our First Meeting">
             </div>
             <div class="premium-photo-desc">The day my life changed forever - when I first saw your beautiful smile!</div>
         </div>
         
         <div class="premium-photo-item">
-            <div class="premium-photo-frame">
+            <div class="album-photo-frame">
                 <img src="pic3.jpg" alt="Our Wedding Day">
             </div>
             <div class="premium-photo-desc">The happiest day of my life - when I got to call you my wife!</div>
         </div>
         
         <div class="premium-photo-item">
-            <div class="premium-photo-frame">
+            <div class="album-photo-frame">
                 <img src="pic4.jpg" alt="Vacation Memories">
             </div>
             <div class="premium-photo-desc">Exploring the world together and creating unforgettable memories!</div>
         </div>
         
         <div class="premium-photo-item">
-            <div class="premium-photo-frame">
+            <div class="album-photo-frame">
                 <img src="pic5.jpg" alt="Everyday Happiness">
             </div>
             <div class="premium-photo-desc">Those simple moments at home that mean everything to me!</div>
         </div>
         
-        <div class="gentle-nav">
-            <button class="nav-main-gentle" onclick="showPage('main-page')">
-                🏠 ہوم پیج
-            </button>
-            <button class="nav-back-gentle" onclick="showPage('love-letter-page')">
-                🔙 بیک
-            </button>
-        </div>
+        <button class="single-btn" onclick="showPage('main-page')">
+            🏠 واپس ہوم
+        </button>
     </div>
 
     <script>
@@ -757,77 +736,39 @@
             }
         }
 
-        // Create VERTICAL party popper effect
-        function createPartyPopper() {
-            const popper = document.getElementById('partyPopper');
-            popper.style.display = 'block';
+        // Create continuous hearts rain
+        function startHeartsRain() {
+            const heartsRain = document.getElementById('heartsRain');
+            heartsRain.style.display = 'block';
             
-            // Create VERTICAL golden flares from left and right going UP
-            for (let i = 0; i < 12; i++) {
+            function createHeart() {
+                const heart = document.createElement('div');
+                heart.className = 'falling-heart';
+                heart.textContent = '💖';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                heart.style.color = Math.random() > 0.5 ? '#ff69b4' : '#ff1493';
+                heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
+                heart.style.textShadow = '0 0 10px currentColor';
+                heartsRain.appendChild(heart);
+                
                 setTimeout(() => {
-                    // Left side flares
-                    const flareLeft = document.createElement('div');
-                    flareLeft.className = 'vertical-flare vertical-flare-left';
-                    flareLeft.style.left = (Math.random() * 30 + 10) + '%';
-                    flareLeft.style.animationDelay = (Math.random() * 0.5) + 's';
-                    popper.appendChild(flareLeft);
-                    
-                    // Right side flares
-                    const flareRight = document.createElement('div');
-                    flareRight.className = 'vertical-flare vertical-flare-right';
-                    flareRight.style.right = (Math.random() * 30 + 10) + '%';
-                    flareRight.style.animationDelay = (Math.random() * 0.5) + 's';
-                    popper.appendChild(flareRight);
-                    
-                    // Center flares
-                    const flareCenter = document.createElement('div');
-                    flareCenter.className = 'vertical-flare vertical-flare-center';
-                    flareCenter.style.animationDelay = (Math.random() * 0.5) + 's';
-                    popper.appendChild(flareCenter);
-                    
-                    setTimeout(() => {
-                        flareLeft.remove();
-                        flareRight.remove();
-                        flareCenter.remove();
-                    }, 2000);
-                }, i * 150);
+                    heart.remove();
+                }, 8000);
             }
             
-            // Create golden poppers flying UP
-            for (let i = 0; i < 40; i++) {
-                setTimeout(() => {
-                    const popperElement = document.createElement('div');
-                    popperElement.className = 'popper';
-                    popperElement.textContent = '✨';
-                    popperElement.style.left = Math.random() * 100 + 'vw';
-                    popperElement.style.fontSize = Math.random() * 25 + 10 + 'px';
-                    popperElement.style.color = 'gold';
-                    popperElement.style.textShadow = '0 0 15px gold, 0 0 30px orange';
-                    popperElement.style.animationDuration = Math.random() * 2 + 1.5 + 's';
-                    popper.appendChild(popperElement);
-                    
-                    setTimeout(() => {
-                        popperElement.remove();
-                    }, 2500);
-                }, i * 80);
-            }
-            
-            // Hide popper after animation
-            setTimeout(() => {
-                popper.style.display = 'none';
-                popper.innerHTML = '';
-            }, 3500);
+            // Create hearts continuously
+            setInterval(createHeart, 300);
         }
 
         // Create stars for all pages
         document.addEventListener('DOMContentLoaded', function() {
             createStars('countdown-stars', 30);
             createStars('main-stars', 50);
-            createStars('letter-stars', 40);
             createStars('album-stars', 40);
         });
 
-        // Countdown Timer with VERTICAL Party Effect
+        // Countdown Timer with Hearts Rain
         let countdown = 5;
         const countdownElement = document.querySelector('.countdown-number');
         const countdownContainer = document.getElementById('countdown');
@@ -839,17 +780,17 @@
             
             if (countdown === 0) {
                 clearInterval(countdownInterval);
-                // Show VERTICAL party effect first
-                createPartyPopper();
-                // Then show main page after a delay
+                // Start hearts rain
+                startHeartsRain();
+                // Then show main page
                 setTimeout(() => {
                     countdownContainer.style.display = 'none';
                     mainPage.style.display = 'block';
-                }, 1000);
+                }, 500);
             }
         }, 1000);
 
-        // Page Navigation - FIXED SCROLL ISSUE
+        // Page Navigation
         function showPage(pageId) {
             // Hide all pages
             document.querySelectorAll('.page').forEach(page => {
@@ -857,20 +798,14 @@
             });
             
             // Show selected page
-            const targetPage = document.getElementById(pageId);
-            targetPage.style.display = 'block';
+            document.getElementById(pageId).style.display = 'block';
             
             // Reset scroll to top
             window.scrollTo(0, 0);
-            
-            // Special styling for love letter page
-            if (pageId === 'love-letter-page') {
-                targetPage.style.display = 'flex';
-            }
         }
 
         // Add floating hearts for main page
-        function createHearts() {
+        function createFloatingHearts() {
             const heart = document.createElement('div');
             heart.style.position = 'fixed';
             heart.style.fontSize = Math.random() * 20 + 10 + 'px';
@@ -904,8 +839,8 @@
         `;
         document.head.appendChild(style);
 
-        // Create hearts periodically
-        setInterval(createHearts, 500);
+        // Create floating hearts periodically
+        setInterval(createFloatingHearts, 800);
     </script>
 </body>
 </html>
